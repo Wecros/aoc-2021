@@ -12,11 +12,14 @@ def main():
     fuel_positions = {}
     for pos in range(min_pos, max_pos + 1):
         fuel_positions[pos] = calculate_position(positions, pos)
-    print(min(fuel_positions.values()))
+    print(int(min(fuel_positions.values())))
 
 
 def calculate_position(positions, target_pos):
-    fuel_positions = [sum(range(abs(pos - target_pos) + 1)) for pos in positions]
+    def gauss_formula(pos, target_pos):
+        n = abs(pos - target_pos)
+        return n / 2 * (1 + n)
+    fuel_positions = [gauss_formula(pos, target_pos) for pos in positions]
     return sum(fuel_positions)
 
 
